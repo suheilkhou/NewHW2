@@ -9,7 +9,10 @@ public class Power  extends Function{
 
     @Override
     public double valueAt(double point){
-        return Math.pow(function.valueAt(point), pow);
+        if (this.pow == 0){
+            return 1;
+        }
+        return Math.pow(function.valueAt(point), this.pow);
     }
 
     @Override
@@ -19,8 +22,13 @@ public class Power  extends Function{
 
     @Override
     public Function derivative(){
+        Function outerDerivative;
         Function innerDerivative = function.derivative();
-        Function outerDerivative = new Power(this.function, pow - 1);
+        if (pow != 0){
+            outerDerivative = new Power(this.function, pow - 1);
+        }else {
+            outerDerivative = new Constant(0);
+        }
         return new MultiProduct(new Constant(pow),outerDerivative,innerDerivative);
 //        return new Product(new Product(new Constant(pow),outerDerivative),insideDerivative);
     }

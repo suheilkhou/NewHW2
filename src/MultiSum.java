@@ -11,6 +11,7 @@ public class MultiSum extends Function{
         for (Function function : this.functions) {
             result += function.valueAt(point);
         }
+
         return result;
     }
 
